@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MainPrices from "@/pages/MainPrices";
 import Servers from "@/pages/Servers";
+import ServerProjects from "@/pages/ServerProjects";
 
 const routes = [
   {
@@ -14,9 +15,9 @@ const routes = [
     component: Servers
   },
   {
-    path: '/servers/data.json',
-    name: 'database',
-    component: Servers
+    path: '/servers/:id/projects',
+    name: 'projects',
+    component: ServerProjects
   }
 ]
 

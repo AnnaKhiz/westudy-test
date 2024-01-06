@@ -4,73 +4,91 @@
       "name": "server1",
       "id": "1",
       "serverInfo": {
-        "cpu_temp": 12,
-        "hdd_load": 32,
-        "projects": {
-          "project_1": {
-            "name": "project name 1",
-            "type": "api"
-          },
-          "project_2": {
-            "name": "project name 2",
-            "type": "front"
-          }
+        "cpu_temp": "34",
+        "hdd_load": 32
+      },
+      "projects": [
+        {
+          "name": "project name 1.1",
+          "type": "api"
+        },
+        {
+          "name": "project name 1.2",
+          "type": "front"
         }
-      }
+      ]
     },
     {
       "name": "server2",
       "id": "2",
       "serverInfo": {
-        "cpu_temp": 25,
-        "hdd_load": 44,
-        "projects": {
-          "project_3": {
-            "name": "project name 3",
-            "type": "api"
-          },
-          "project_4": {
-            "name": "project name 4",
-            "type": "front"
-          }
+        "cpu_temp": "45",
+        "hdd_load": 44
+      },
+      "projects": [
+        {
+          "name": "project name 2.1",
+          "type": "api"
+        },
+        {
+          "name": "project name 2.2",
+          "type": "front"
         }
-      }
+      ]
     },
     {
       "name": "server3",
       "id": "3",
       "serverInfo": {
         "cpu_temp": 14,
-        "hdd_load": 54,
-        "projects": {
-          "project_1": {
-            "name": "project name 1",
-            "type": "api"
-          },
-          "project_2": {
-            "name": "project name 2",
-            "type": "front"
-          }
+        "hdd_load": 54
+      },
+      "projects": [
+        {
+          "name": "project name 3.1",
+          "type": "api"
+        },
+        {
+          "name": "project name 3.2",
+          "type": "front"
         }
-      }
+      ]
     },
     {
       "name": "server4",
       "id": "4",
       "serverInfo": {
         "cpu_temp": 26,
-        "hdd_load": 42,
-        "projects": {
-          "project_1": {
-            "name": "project name 1",
-            "type": "api"
-          },
-          "project_2": {
-            "name": "project name 2",
-            "type": "front"
-          }
+        "hdd_load": 42
+      },
+      "projects": [
+        {
+          "name": "project name 4.1",
+          "type": "api"
+        },
+        {
+          "name": "project name 4.2",
+          "type": "front"
         }
-      }
+      ]
+    },
+    {
+      "id": 1704539845959,
+      "name": "server56",
+      "serverInfo": {
+        "cpu_temp": "56",
+        "hdd_load": "67"
+      },
+      "projects": [
+        {
+          "name": "project name 1",
+          "type": "api"
+        },
+        {
+          "name": "project name 2",
+          "type": "front"
+        }
+      ]
     }
   ]
 }

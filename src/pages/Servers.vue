@@ -7,19 +7,25 @@
 
   <div class="servers">
     <div class="servers__block">
-      <div class="servers__card" v-for="server in servers">
-        <p>Название сервера: <span class="bold">{{ server.name }}</span></p>
-        <p>Загрузка процессора: <span class="bold"> {{ server.serverInfo.cpu_temp }}%</span></p>
-        <p>Загрузка оперативной памяти: <span class="bold">{{ server.serverInfo.hdd_load }}%</span></p>
+      <div class="servers__card" v-for="server in servers" :key="server.id" @click="$emit('click', server.id)">
+        <p class="servers__text">Название сервера: <span class="bold">{{ server.name }}</span></p>
+        <p class="servers__text">Загрузка процессора: <span class="bold"> {{ server.serverInfo.cpu_temp }}%</span></p>
+        <p class="servers__text last">Загрузка оперативной памяти: <span class="bold">{{ server.serverInfo.hdd_load }}%</span></p>
         <div class="servers__btn">
-          <custom-button>Редактировать</custom-button>
-          <custom-button>Редактировать проекты</custom-button>
+          <custom-button @click="showModalForEdit" :id="server.id" >Редактировать</custom-button>
+          <custom-button @click="$router.push(`/servers/${server.id}/projects`)" >Редактировать проекты</custom-button>
         </div>
       </div>
     </div>
   </div>
-  <modal-add-server v-model:show="isModal">
+  <modal-add-server
+    :edit="isEdit"
+    v-model:edit="isEdit"
+    v-model:show="isModal"
+  >
     <add-server-form
+      :edit="isEdit"
+      :editServerForm="checkedElement"
       @create="createServer"
     />
   </modal-add-server>
@@ -34,6 +40,7 @@
   import AddServerForm from "@/components/AddServerForm";
   import CustomButton from "@/components/UI/CustomButton";
   import axios from 'axios'
+  import {toRaw} from "@vue/reactivity";
   export default {
     name: "Servers.vue",
     components: {CustomButton, AddServerForm, ModalAddServer},
@@ -41,12 +48,23 @@
       return {
         servers: data.servers,
         isModal: false,
-        inputName: ''
+        inputName: '',
+        editButtonId: 0,
+        checkedElement: '',
+        isEdit: false,
       }
     },
+    emits: ['click'],
     methods: {
       showModal() {
         this.isModal = true;
+      },
+      showModalForEdit(event) {
+        this.isModal = true;
+        this.editButtonId = event.target.id
+        const data = this.servers.filter(el => +el.id === +this.editButtonId)
+        this.checkedElement = toRaw(...data)
+        this.isEdit = true
       },
       createServer(server) {
         try {
@@ -55,8 +73,6 @@
         } catch {
           throw new Error('error in POST request')
         }
-
-        console.log(this.servers)
       }
     }
   }
@@ -81,14 +97,19 @@
     justify-content: flex-start;
     gap: 1.5rem;
     margin-bottom: 1.5rem;
-
   }
   &__card {
     width: 45%;
     padding: 1.5rem 1.5rem 0 1.5rem;
     border: 1px solid teal;
     text-align: left;
+  }
+  &__text {
     font-size: 1.5rem;
+    margin-bottom: 15px;
+    &.last {
+      margin-bottom: 25px;
+    }
   }
 }
 .btn {

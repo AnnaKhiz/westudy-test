@@ -1,21 +1,27 @@
 <template>
   <div class="servers__modal" v-if="show" @click="hideModal" >
     <div class="servers__form" @click.stop>
+      <custom-close-icon @click="hideModal" />
       <slot></slot>
     </div>
   </div>
 </template>
 
 <script>
+
   export default {
     name: "ModalAddServer.vue",
     data() {
       return {
-        // isModal: false
+
       }
     },
     props: {
       show: {
+        type: Boolean,
+        default: false
+      },
+      edit: {
         type: Boolean,
         default: false
       }
@@ -23,7 +29,9 @@
     methods: {
       hideModal() {
         this.$emit('update:show', false)
-      }
+        this.$emit('update:edit', false)
+      },
+
     }
   }
 </script>
@@ -41,13 +49,27 @@
     margin: auto;
     background-color: white;
     border-radius: 12px;
-    max-width: 500px;
-    max-height: 500px;
-    padding: 20px;
-    border: 1px solid teal;
+    max-width: 50rem;
+    max-height: 50rem;
+    padding: 3rem;
+    border: 1px solid #008080;
     font-size: 1rem;
     text-align: center;
+    position: relative;
   }
-}
 
+}
+/*.form {*/
+/*  &__close {*/
+/*    position: absolute;*/
+/*    top: 0.5rem;*/
+/*    right: 0.5rem;*/
+/*    cursor: pointer;*/
+/*  }*/
+/*  & img svg{*/
+/*    fill: #42b983;*/
+/*    width: 30px;*/
+/*    height: 30px;*/
+/*  }*/
+/*}*/
 </style>

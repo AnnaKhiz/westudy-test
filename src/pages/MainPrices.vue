@@ -17,7 +17,7 @@
       </td>
     </tr>
   </table>
-  <div v-else class="loading">Loading price...</div>
+  <div v-else class="loading">Идет загрузка...</div>
 </template>
 
 <script>

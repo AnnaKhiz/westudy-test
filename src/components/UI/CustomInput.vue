@@ -23,9 +23,14 @@
 
 <style scoped lang="scss">
 .input {
-  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 1rem;
   border: 1px solid teal;
-  border-radius: 10px;
-  margin-bottom: 15px;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+  &:last-of-type {
+    margin-bottom: 30px;
+  }
 }
 </style>
