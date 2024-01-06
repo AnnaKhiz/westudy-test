@@ -24,12 +24,18 @@
       edit: {
         type: Boolean,
         default: false
+      },
+      ren: {
+        type: Boolean,
+        default: false
       }
     },
     methods: {
       hideModal() {
         this.$emit('update:show', false)
         this.$emit('update:edit', false)
+        this.$emit('update:ren', false)
+
       },
 
     }
@@ -49,7 +55,8 @@
     margin: auto;
     background-color: white;
     border-radius: 12px;
-    max-width: 50rem;
+    max-width: 30rem;
+    width: 100%;
     max-height: 50rem;
     padding: 3rem;
     border: 1px solid #008080;

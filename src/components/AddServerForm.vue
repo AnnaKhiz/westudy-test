@@ -31,13 +31,14 @@
 
   </form>
 
-  <form v-else class="form__add-server" @click="showMe">
+  <form v-else class="form__add-server">
 
     <label for="server-name">Название сервера:</label>
     <custom-input
       placeholder="Введите название..."
       id="server-name"
       name="server-name"
+      :value="editServerForm.name"
       v-model="editServerForm.name"
 
     />
@@ -47,6 +48,7 @@
       placeholder="Введите загрузку процессора..."
       id="server-cpu"
       name="server-cpu"
+      :value="editServerForm.serverInfo.cpu_temp"
       v-model="editServerForm.serverInfo.cpu_temp"
     />
 
@@ -55,6 +57,7 @@
       placeholder="Введите загрузку оперативной памяти..."
       id="server-hdd"
       name="server-hdd"
+      :value="editServerForm.serverInfo.hdd_load"
       v-model="editServerForm.serverInfo.hdd_load"
     />
 
@@ -83,7 +86,14 @@
           serverInfo: {
             cpu_temp: '',
             hdd_load: ''
-          }
+          },
+          projects: [
+            {
+              id: '',
+              name:'',
+              type: ''
+            }
+          ]
         },
         message: ''
       }
@@ -107,7 +117,14 @@
             serverInfo: {
               cpu_temp: this.editServerForm.serverInfo.cpu_temp,
               hdd_load: this.editServerForm.serverInfo.hdd_load
-            }
+            },
+            projects: [
+              {
+                id: '',
+                name:'',
+                type: ''
+              }
+            ]
           })
             .then(res => console.log(res))
         } catch {
@@ -147,6 +164,7 @@ input {
   border-radius: 10px;
   margin-bottom: 15px;
 }
+
 .form {
   &__add-server {
     text-align: left;
@@ -160,14 +178,7 @@ input {
     right: 0.5rem;
     cursor: pointer;
   }
-  & img svg{
-    fill: #42b983;
-    width: 30px;
-    height: 30px;
-  }
 }
-
-
 
 
 </style>

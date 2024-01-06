@@ -1,7 +1,7 @@
 {
   "servers": [
     {
-      "name": "server1",
+      "name": "server",
       "id": "1",
       "serverInfo": {
         "cpu_temp": "34",
@@ -9,35 +9,47 @@
       },
       "projects": [
         {
-          "name": "project name 1.1",
-          "type": "api"
+          "id": 1111,
+          "name": "project name 3.1",
+          "type": "api",
+          "domain": "somedomain331",
+          "port": 3030,
+          "active": false
         },
         {
-          "name": "project name 1.2",
-          "type": "front"
+          "id": 112,
+          "name": "project name 3.2",
+          "type": "front",
+          "domain": "somedomain332",
+          "port": 8000,
+          "active": true
         }
       ]
     },
     {
-      "name": "server2",
+      "name": "project name 3.1",
       "id": "2",
       "serverInfo": {
         "cpu_temp": "45",
-        "hdd_load": 44
+        "hdd_load": "44s"
       },
       "projects": [
         {
-          "name": "project name 2.1",
-          "type": "api"
-        },
-        {
-          "name": "project name 2.2",
-          "type": "front"
+          "id": 221,
+          "name": "project name 3.7",
+          "type": "api",
+          "domain": "somedomain331",
+          "port": 3030,
+          "active": false
         }
-      ]
+      ],
+      "type": "api",
+      "domain": "somedomain331",
+      "port": 3030,
+      "active": false
     },
     {
-      "name": "server3",
+      "name": "server37",
       "id": "3",
       "serverInfo": {
         "cpu_temp": 14,
@@ -45,12 +57,20 @@
       },
       "projects": [
         {
+          "id": 331,
           "name": "project name 3.1",
-          "type": "api"
+          "type": "api",
+          "domain": "somedomain331",
+          "port": 3030,
+          "active": false
         },
         {
+          "id": 332,
           "name": "project name 3.2",
-          "type": "front"
+          "type": "front",
+          "domain": "somedomain332",
+          "port": 8000,
+          "active": true
         }
       ]
     },
@@ -58,17 +78,25 @@
       "name": "server4",
       "id": "4",
       "serverInfo": {
-        "cpu_temp": 26,
+        "cpu_temp": "45",
         "hdd_load": 42
       },
       "projects": [
         {
+          "id": 441,
           "name": "project name 4.1",
-          "type": "api"
+          "type": "api",
+          "domain": "somedomain441",
+          "port": 3000,
+          "active": true
         },
         {
+          "id": 442,
           "name": "project name 4.2",
-          "type": "front"
+          "type": "front",
+          "domain": "somedomain442",
+          "port": 5000,
+          "active": false
         }
       ]
     },
@@ -81,12 +109,43 @@
       },
       "projects": [
         {
+          "id": 551,
           "name": "project name 1",
-          "type": "api"
+          "type": "api",
+          "domain": "somedomain551",
+          "port": 3000,
+          "active": false
         },
         {
+          "id": 552,
           "name": "project name 2",
-          "type": "front"
+          "type": "front",
+          "domain": "somedomain552",
+          "port": 3030,
+          "active": false
+        }
+      ]
+    },
+    {
+      "id": 1704575419729,
+      "name": "server8",
+      "serverInfo": {
+        "cpu_temp": "45",
+        "hdd_load": "67"
+      }
+    },
+    {
+      "id": 1704575504529,
+      "name": "1",
+      "serverInfo": {
+        "cpu_temp": "2",
+        "hdd_load": "3"
+      },
+      "projects": [
+        {
+          "id": "",
+          "name": "",
+          "type": ""
         }
       ]
     }

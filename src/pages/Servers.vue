@@ -5,9 +5,9 @@
     </custom-button>
   </div>
 
-  <div class="servers">
+  <div class="servers" v-if="servers.length > 0">
     <div class="servers__block">
-      <div class="servers__card" v-for="server in servers" :key="server.id" @click="$emit('click', server.id)">
+      <div class="servers__card" :servers="servers" v-for="server in servers" :key="server.id" @click="$emit('click', server.id)">
         <p class="servers__text">Название сервера: <span class="bold">{{ server.name }}</span></p>
         <p class="servers__text">Загрузка процессора: <span class="bold"> {{ server.serverInfo.cpu_temp }}%</span></p>
         <p class="servers__text last">Загрузка оперативной памяти: <span class="bold">{{ server.serverInfo.hdd_load }}%</span></p>
@@ -18,15 +18,20 @@
       </div>
     </div>
   </div>
+  <div v-else class="loading">Идет загрузка...</div>
   <modal-add-server
     :edit="isEdit"
     v-model:edit="isEdit"
     v-model:show="isModal"
+    :ren="isRender"
+    v-model:ren="isRender"
   >
     <add-server-form
       :edit="isEdit"
       :editServerForm="checkedElement"
       @create="createServer"
+
+
     />
   </modal-add-server>
 
@@ -41,27 +46,32 @@
   import CustomButton from "@/components/UI/CustomButton";
   import axios from 'axios'
   import {toRaw} from "@vue/reactivity";
+  import {watchEffect} from "@vue/runtime-core";
   export default {
     name: "Servers.vue",
     components: {CustomButton, AddServerForm, ModalAddServer},
     data() {
       return {
-        servers: data.servers,
+        servers: [],
         isModal: false,
         inputName: '',
         editButtonId: 0,
         checkedElement: '',
         isEdit: false,
+        isRender: false,
+        isLoading: false
       }
     },
     emits: ['click'],
     methods: {
+
       showModal() {
         this.isModal = true;
       },
       showModalForEdit(event) {
         this.isModal = true;
         this.editButtonId = event.target.id
+
         const data = this.servers.filter(el => +el.id === +this.editButtonId)
         this.checkedElement = toRaw(...data)
         this.isEdit = true
@@ -73,8 +83,48 @@
         } catch {
           throw new Error('error in POST request')
         }
+      },
+      async renderServers() {
+          try {
+            this.isLoading = true;
+            const response = await axios.get('http://localhost:3000/servers');
+            const data = response.data;
+            // console.log(data)
+            this.servers = data.map((element) => (
+              {
+                id: element.id,
+                name: element.name,
+                serverInfo: {
+                  cpu_temp: element.serverInfo.cpu_temp,
+                  hdd_load: element.serverInfo.hdd_load
+                }
+              }
+            ))
+            this.isLoading = false;
+          } catch {
+            throw new Error('fetch error')
+          }
+      },
+
+    },
+
+    mounted() {
+
+      if(!this.isRender) {
+        this.renderServers()
+        this.isRender = true;
       }
+
+    },
+    watch: {
+      isRender(newValue) {
+        this.renderServers()
+        this.isRender = newValue;
+
+      }
+
     }
+
   }
 </script>
 
@@ -82,7 +132,9 @@
 /** {*/
 /*  border: 1px solid red*/
 /*}*/
-
+.loading {
+  font-size: 1.5rem;
+}
 
 .servers {
   &__block {
