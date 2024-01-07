@@ -6,7 +6,7 @@
       placeholder="Введите название..."
       id="server-name"
       name="server-name"
-      v-model="server.name"
+      v-model.trim="server.name"
     />
 
     <label for="server-cpu">Загрузка процессора в процентах:</label>
@@ -14,7 +14,7 @@
       placeholder="Введите загрузку процессора..."
       id="server-cpu"
       name="server-cpu"
-      v-model="server.serverInfo.cpu_temp"
+      v-model.trim.number="server.serverInfo.cpu_temp"
     />
 
     <label for="server-hdd">Загрузка оперативной памяти в процентах:</label>
@@ -22,7 +22,7 @@
       placeholder="Введите загрузку оперативной памяти..."
       id="server-hdd"
       name="server-hdd"
-      v-model="server.serverInfo.hdd_load"
+      v-model.trim.number="server.serverInfo.hdd_load"
     />
 
       <custom-button  class="form__btn" @click.prevent @click="createServer">Добавить</custom-button>
@@ -39,7 +39,7 @@
       id="server-name"
       name="server-name"
       :value="editServerForm.name"
-      v-model="editServerForm.name"
+      v-model.trim="editServerForm.name"
 
     />
 
@@ -49,7 +49,7 @@
       id="server-cpu"
       name="server-cpu"
       :value="editServerForm.serverInfo.cpu_temp"
-      v-model="editServerForm.serverInfo.cpu_temp"
+      v-model.trim.number="editServerForm.serverInfo.cpu_temp"
     />
 
     <label for="server-hdd">Загрузка оперативной памяти в процентах:</label>
@@ -58,7 +58,7 @@
       id="server-hdd"
       name="server-hdd"
       :value="editServerForm.serverInfo.hdd_load"
-      v-model="editServerForm.serverInfo.hdd_load"
+      v-model.trim.number="editServerForm.serverInfo.hdd_load"
     />
 
     <custom-button class="form__btn" @click.prevent @click="saveChanges">Редактировать</custom-button>
@@ -117,16 +117,8 @@
             serverInfo: {
               cpu_temp: this.editServerForm.serverInfo.cpu_temp,
               hdd_load: this.editServerForm.serverInfo.hdd_load
-            },
-            projects: [
-              {
-                id: '',
-                name:'',
-                type: ''
-              }
-            ]
+            }
           })
-            .then(res => console.log(res))
         } catch {
           throw new Error('error in POST request')
         }

@@ -87,7 +87,6 @@
           this.isLoading = true;
           const response = await axios.get(`http://localhost:3000/servers/${this.serverId}`);
           const data = response.data.projects;
-          console.log(data)
           this.projects = data.map((element) => (
             {
               id: element.id,

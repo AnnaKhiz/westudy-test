@@ -7,7 +7,7 @@
         placeholder="Введите ID..."
         id="project-id"
         name="project-id"
-        v-model="project.id"
+        v-model.trim="project.id"
       />
 
       <label for="project-name">Название проекта:</label>
@@ -15,23 +15,31 @@
         placeholder="Введите название проекта..."
         id="project-name"
         name="project-name"
-        v-model="project.name"
+        v-model.trim="project.name"
       />
 
-      <label for="project-type">Тип проекта:</label>
-      <custom-input
-        placeholder="Введите тип проекта..."
+<!--      <label for="project-type">Тип проекта:</label>-->
+<!--      <custom-input-->
+<!--        placeholder="Введите тип проекта..."-->
+<!--        id="project-type"-->
+<!--        name="project-type"-->
+<!--        v-model.trim="project.type"-->
+<!--      />-->
+
+      <label for="project-type">Выберите тип проекта:</label>
+      <custom-select
         id="project-type"
-        name="project-type"
-        v-model="project.type"
+        :options="projectTypes"
+        v-model="selectedSort"
       />
+
 
       <label for="project-domain">Домен:</label>
       <custom-input
         placeholder="Введите домен..."
         id="project-domain"
         name="project-domain"
-        v-model="project.domain"
+        v-model.trim="project.domain"
       />
 
       <label for="project-port">Порт:</label>
@@ -39,16 +47,22 @@
         placeholder="Введите порт..."
         id="project-port"
         name="project-port"
-        v-model="project.port"
+        v-model.trim.number="project.port"
       />
 
-      <label for="project-active">Активный:</label>
-      <custom-input
-        placeholder="Введите порт..."
+
+      <custom-checkbox
         id="project-active"
-        name="project-active"
-        v-model="project.active"
+        v-model:isActive="isActive"
       />
+      <label for="project-active" class="checkbox-label">Активный</label>
+
+<!--      <custom-input-->
+<!--        placeholder="Введите порт..."-->
+<!--        id="project-active"-->
+<!--        name="project-active"-->
+<!--        v-model="project.active"-->
+<!--      />-->
 
       <custom-button  class="form__btn" @click.prevent @click="">Добавить</custom-button>
 
@@ -72,17 +86,16 @@
       id="project-name"
       name="project-name"
       :value="editServerForm.name"
-      v-model="editServerForm.name"
+      v-model.trim="editServerForm.name"
     />
 
-    <label for="project-type">Тип проекта:</label>
-    <custom-input
-      placeholder="Введите тип проекта..."
+    <label for="project-type">Выберите тип проекта:</label>
+    <custom-select
       id="project-type"
-      name="project-type"
-      :value="editServerForm.type"
+      :options="projectTypes"
       v-model="editServerForm.type"
     />
+
 
     <label for="project-domain">Домен:</label>
     <custom-input
@@ -90,7 +103,7 @@
       id="project-domain"
       name="project-domain"
       :value="editServerForm.domain"
-      v-model="editServerForm.domain"
+      v-model.trim="editServerForm.domain"
     />
 
     <label for="project-port">Порт:</label>
@@ -99,17 +112,22 @@
       id="project-port"
       name="project-port"
       :value="editServerForm.port"
-      v-model="editServerForm.port"
+      v-model.trim.number="editServerForm.port"
     />
 
-    <label for="project-active">Активный:</label>
-    <custom-input
-      placeholder="Введите порт..."
+    <custom-checkbox
+      v-if="editServerForm.active === true"
+      checked
       id="project-active"
-      name="project-active"
-      v-model="editServerForm.active"
-      :value="editServerForm.active"
+      v-model:isActive="editServerForm.active"
     />
+    <custom-checkbox
+      v-else
+      id="project-active"
+      v-model:isActive="editServerForm.active"
+    />
+
+    <label for="project-active" class="checkbox-label">Активный</label>
 
     <custom-button  class="form__btn" @click.prevent @click="saveEditedProject" >Редактировать</custom-button>
 
@@ -121,13 +139,14 @@
 </template>
 
 <script>
-
   import ModalAddServer from "@/components/ModalAddServer";
   import CustomInput from "@/components/UI/CustomInput";
   import axios from "axios";
+  import CustomSelect from "@/components/UI/CustomSelect";
+
   export default {
     name: "AddProject.vue",
-    components: {ModalAddServer, CustomInput},
+    components: {CustomSelect, ModalAddServer, CustomInput},
     data() {
       return {
         project: {
@@ -138,7 +157,15 @@
           port: '',
           active: ''
         },
-        message: ''
+        projectTypes: [
+          { name: "Api", value: "api" },
+          { name: "Front", value: "front" },
+          { name: "Worker", value: "worker"}
+        ],
+        message: '',
+        isActive: false,
+        selectedSort: '',
+
     }
     },
     props: {
@@ -158,13 +185,14 @@
       },
     },
     methods: {
+
       hideModal() {
         this.$emit('update:show', false)
         this.$emit('update:edit', false)
         this.$emit('update:ren', false)
       },
       saveEditedProject(event) {
-        // console.log(this.project.id)
+
         const target = event.target.id
         const obj = {
           projects: [
@@ -177,15 +205,12 @@
               active: this.editServerForm.active
             }
           ]
-
         }
-
-
         try {
           console.log(`http://localhost:3000/servers/${this.serverId}`)
           axios.patch(`http://localhost:3000/servers/${this.serverId}`, obj)
             this.hideModal()
-            .then(res => console.log(res))
+
         } catch {
           throw new Error('error in POST request')
         }
@@ -225,4 +250,7 @@
       cursor: pointer;
     }
   }
+.checkbox-label {
+  display: inline;
+}
 </style>

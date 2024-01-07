@@ -1,0 +1,30 @@
+{
+  "server1": {
+    "cpu_temp": 12,
+    "hdd_load": 32,
+    "projects": {
+      "project_1": {
+        "id": 1,
+        "name": "project name 1",
+        "type": "api"
+      },
+      "project_2": {
+        "id": 2,
+        "name": "project name 2",
+        "type": "front"
+      }
+    }},
+  "server2": {
+    "cpu_temp": 25,
+    "hdd_load": 44,
+    "projects": {
+      "project_3": {
+        "name": "project name 3",
+        "type": "api"
+      },
+      "project_4": {
+        "name": "project name 4",
+        "type": "front"
+      }
+    }}
+}
