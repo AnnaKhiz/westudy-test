@@ -19,7 +19,7 @@
           {{ project.type }}
         </td>
         <td class="table__edit">
-          <custom-button @click="showProjectModalForEdit" :id="project.id" >Редактировать {{ project.id }}</custom-button>
+          <custom-button @click="showProjectModalForEdit" :id="project.id" >Редактировать</custom-button>
         </td>
       </tr>
     </table>
@@ -69,9 +69,20 @@
       }
     },
     methods: {
-      createProject(project) {
+      async createProject(project) {
         console.log('function Create project works')
         console.log(project)
+        try {
+          const response = await axios.get(`http://localhost:3000/servers/${this.serverId}`)
+          const data = await response.data;
+          const projects = data.projects;
+          projects.push(project)
+
+          await axios.patch(`http://localhost:3000/servers/${this.serverId}`, data)
+
+        } catch {
+          throw new Error('project not created')
+        }
       },
       showProjectModal() {
         this.isModal = true;
@@ -118,7 +129,6 @@
       isRender(newValue) {
         this.getProjects()
         this.isRender = newValue;
-        // console.log(`watcher ${this.isRender}`)
       }
 
     }

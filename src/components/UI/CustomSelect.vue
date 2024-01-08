@@ -1,5 +1,6 @@
 <template>
   <select @change="changeOption" class="select">
+    <option value="" selected disabled>Выберите тип проекта</option>
     <option
       v-for="option in options"
       :key="option.value"

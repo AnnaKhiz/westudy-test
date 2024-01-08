@@ -66,17 +66,4 @@
   }
 
 }
-/*.form {*/
-/*  &__close {*/
-/*    position: absolute;*/
-/*    top: 0.5rem;*/
-/*    right: 0.5rem;*/
-/*    cursor: pointer;*/
-/*  }*/
-/*  & img svg{*/
-/*    fill: #42b983;*/
-/*    width: 30px;*/
-/*    height: 30px;*/
-/*  }*/
-/*}*/
 </style>

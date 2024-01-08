@@ -10,10 +10,18 @@
       "projects": [
         {
           "id": 111,
-          "name": "project name 11upd",
-          "type": "worker",
+          "name": "project name 12",
+          "type": "front",
           "domain": "somedomain551",
-          "port": 3000,
+          "port": 8000,
+          "active": true
+        },
+        {
+          "id": "12",
+          "name": "project name 2.9",
+          "type": "front",
+          "domain": "0000",
+          "port": 2323,
           "active": false
         }
       ]
@@ -41,6 +49,13 @@
           "domain": "somedomain332",
           "port": 8000,
           "active": true
+        },
+        {
+          "id": "23",
+          "name": "project name 2.8",
+          "domain": "er",
+          "port": "er",
+          "type": "worker"
         }
       ]
     },
@@ -72,7 +87,7 @@
     },
     {
       "id": 1704539845959,
-      "name": "server56",
+      "name": "server56xcv",
       "serverInfo": {
         "cpu_temp": "56",
         "hdd_load": "67"
@@ -93,51 +108,6 @@
           "domain": "somedomain552",
           "port": 3030,
           "active": false
-        }
-      ]
-    },
-    {
-      "id": 1704643652091,
-      "name": "server8",
-      "serverInfo": {
-        "cpu_temp": "s",
-        "hdd_load": "k"
-      },
-      "projects": [
-        {
-          "id": "",
-          "name": "",
-          "type": ""
-        }
-      ]
-    },
-    {
-      "id": 1704660661636,
-      "name": "1",
-      "serverInfo": {
-        "cpu_temp": 2,
-        "hdd_load": 3
-      },
-      "projects": [
-        {
-          "id": "",
-          "name": "",
-          "type": ""
-        }
-      ]
-    },
-    {
-      "id": 1704747695831,
-      "name": "e",
-      "serverInfo": {
-        "cpu_temp": "e",
-        "hdd_load": "e"
-      },
-      "projects": [
-        {
-          "id": "",
-          "name": "",
-          "type": ""
         }
       ]
     }

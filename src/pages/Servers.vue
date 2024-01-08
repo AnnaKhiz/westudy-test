@@ -30,8 +30,6 @@
       :edit="isEdit"
       :editServerForm="checkedElement"
       @create="createServer"
-
-
     />
   </modal-add-server>
 
@@ -40,13 +38,11 @@
 
 <script>
 
-  import * as data from '@/database/servers.json';
   import ModalAddServer from "@/components/ModalAddServer";
   import AddServerForm from "@/components/AddServerForm";
   import CustomButton from "@/components/UI/CustomButton";
   import axios from 'axios'
   import {toRaw} from "@vue/reactivity";
-  import {watchEffect} from "@vue/runtime-core";
   export default {
     name: "Servers.vue",
     components: {CustomButton, AddServerForm, ModalAddServer},
@@ -89,7 +85,7 @@
             this.isLoading = true;
             const response = await axios.get('http://localhost:3000/servers');
             const data = response.data;
-            // console.log(data)
+
             this.servers = data.map((element) => (
               {
                 id: element.id,
@@ -109,29 +105,22 @@
     },
 
     mounted() {
-
       if(!this.isRender) {
         this.renderServers()
         this.isRender = true;
       }
-
     },
     watch: {
       isRender(newValue) {
         this.renderServers()
         this.isRender = newValue;
-
       }
-
     }
-
   }
 </script>
 
 <style scoped lang="scss">
-/** {*/
-/*  border: 1px solid red*/
-/*}*/
+
 .loading {
   font-size: 1.5rem;
 }

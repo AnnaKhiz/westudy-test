@@ -18,21 +18,11 @@
         v-model.trim="project.name"
       />
 
-<!--      <label for="project-type">Тип проекта:</label>-->
-<!--      <custom-input-->
-<!--        placeholder="Введите тип проекта..."-->
-<!--        id="project-type"-->
-<!--        name="project-type"-->
-<!--        v-model.trim="project.type"-->
-<!--      />-->
-
-      <label for="project-type">Выберите тип проекта:</label>
       <custom-select
         id="project-type"
         :options="projectTypes"
         v-model="project.type"
       />
-
 
       <label for="project-domain">Домен:</label>
       <custom-input
@@ -50,36 +40,20 @@
         v-model.trim.number="project.port"
       />
 
-
       <custom-checkbox
         id="project-active"
         v-model:isActive="project.active"
-
       />
       <label for="project-active" class="checkbox-label">Активный</label>
 
-<!--      <custom-input-->
-<!--        placeholder="Введите порт..."-->
-<!--        id="project-active"-->
-<!--        name="project-active"-->
-<!--        v-model="project.active"-->
-<!--      />-->
-
-      <custom-button  class="form__btn" @click.prevent @click="addNewProject">Добавить</custom-button>
+      <custom-button  v-if="isDisabled" class="form__btn" @click.prevent @click="addNewProject" disabled>Добавить</custom-button>
+      <custom-button  v-else class="form__btn" @click.prevent @click="addNewProject" >Добавить</custom-button>
 
       <custom-message-block >{{ message }}</custom-message-block>
 
     </form>
   <form v-else class="form__add-server">
 
-<!--    <label for="project-id" >ID:</label>-->
-<!--    <custom-input-->
-<!--      readonly-->
-<!--      placeholder="Введите ID..."-->
-<!--      id="project-id"-->
-<!--      name="project-id"-->
-<!--      v-model="editServerForm.id"-->
-<!--    />-->
     <div class="project__title">ID: {{editServerForm.id}}</div>
     <label for="project-name">Название проекта:</label>
     <custom-input
@@ -90,7 +64,7 @@
       v-model.trim="editServerForm.name"
     />
 
-    <label for="project-type">Выберите тип проекта:</label>
+    <label for="project-type">Тип проекта ({{ editServerForm.type }}). Изменить:</label>
     <custom-select
       id="project-type"
       :options="projectTypes"
@@ -166,7 +140,7 @@
         message: '',
         isActive: false,
         selectedSort: '',
-
+        isDisabled: false
     }
     },
     props: {
@@ -185,6 +159,7 @@
         type: Number
       },
     },
+    emits: ['create'],
     methods: {
 
       hideModal() {
@@ -193,7 +168,20 @@
         this.$emit('update:ren', false)
       },
       addNewProject() {
-        console.log(this.project)
+        if (Object.values(this.project).every(value => value === '')) {
+          this.message = 'Заполните все поля'
+        } else {
+
+          this.project = {
+            id: this.project.id,
+            name: this.project.name,
+            type: this.project.type,
+            domain: this.project.domain,
+            port: this.project.port,
+            active: this.project.active
+          }
+          this.$emit('create', this.project);
+        }
       },
 
       async saveEditedProject(event) {
@@ -214,8 +202,6 @@
               }
           })
 
-          console.log(data)
-
           await axios.patch(`http://localhost:3000/servers/${this.serverId}`, data)
 
           this.$emit('update:show', false)
@@ -224,7 +210,9 @@
           throw new Error('error in POST request')
         }
       }
-    }
+    },
+
+
   }
 </script>
 
