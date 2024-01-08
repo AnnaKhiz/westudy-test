@@ -30,7 +30,7 @@
       <custom-select
         id="project-type"
         :options="projectTypes"
-        v-model="selectedSort"
+        v-model="project.type"
       />
 
 
@@ -153,7 +153,7 @@
         project: {
           id: '',
           name: '',
-          type: '',
+          type: this.selectedSort,
           domain: '',
           port: '',
           active: this.isActive
