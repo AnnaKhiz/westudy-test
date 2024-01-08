@@ -1,7 +1,7 @@
 {
   "servers": [
     {
-      "name": "server21",
+      "name": "server21eeee",
       "id": "1",
       "serverInfo": {
         "cpu_temp": 23,
@@ -10,61 +10,11 @@
       "projects": [
         {
           "id": 111,
-          "name": "project name 11",
-          "type": "api",
-          "domain": "somedomain551",
-          "port": 3000,
-          "active": true
-        },
-        {
-          "id": 112,
-          "name": "project name 12",
-          "type": "front",
-          "domain": "somedomain552",
-          "port": 3030,
-          "active": false
-        }
-      ]
-    },
-    {
-      "name": "server 3.1",
-      "id": "2",
-      "serverInfo": {
-        "cpu_temp": "45",
-        "hdd_load": "44s"
-      },
-      "projects": [
-        {
-          "id": 221,
-          "name": "project name 21",
-          "type": "api",
+          "name": "project name 11upd",
+          "type": "worker",
           "domain": "somedomain551",
           "port": 3000,
           "active": false
-        },
-        {
-          "id": 222,
-          "name": "project name 22",
-          "type": "front",
-          "domain": "somedomain552",
-          "port": 3030,
-          "active": true
-        },
-        {
-          "id": 223,
-          "name": "project name 23",
-          "type": "api",
-          "domain": "somedomain551",
-          "port": 3000,
-          "active": false
-        },
-        {
-          "id": 224,
-          "name": "project name 24",
-          "type": "front",
-          "domain": "somedomain552",
-          "port": 3030,
-          "active": true
         }
       ]
     },
@@ -79,7 +29,7 @@
         {
           "id": 331,
           "name": "project name 3.1",
-          "type": "api",
+          "type": "worker",
           "domain": "somedomain331",
           "port": 3030,
           "active": false
@@ -105,18 +55,18 @@
         {
           "id": 441,
           "name": "project name 4.1",
-          "type": "api",
+          "type": "worker",
           "domain": "somedomain441",
           "port": 3000,
           "active": true
         },
         {
           "id": 442,
-          "name": "project name 4.2",
-          "type": "front",
+          "name": "project name 4.2updated2/0",
+          "type": "api",
           "domain": "somedomain442",
           "port": 5000,
-          "active": false
+          "active": true
         }
       ]
     },
@@ -167,6 +117,21 @@
       "serverInfo": {
         "cpu_temp": 2,
         "hdd_load": 3
+      },
+      "projects": [
+        {
+          "id": "",
+          "name": "",
+          "type": ""
+        }
+      ]
+    },
+    {
+      "id": 1704747695831,
+      "name": "e",
+      "serverInfo": {
+        "cpu_temp": "e",
+        "hdd_load": "e"
       },
       "projects": [
         {

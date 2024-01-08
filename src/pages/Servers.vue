@@ -76,9 +76,9 @@
         this.checkedElement = toRaw(...data)
         this.isEdit = true
       },
-      createServer(server) {
+      async createServer(server) {
         try {
-          axios.post('http://localhost:3000/servers', server)
+          await axios.post('http://localhost:3000/servers', server)
           .then(res => console.log(res))
         } catch {
           throw new Error('error in POST request')

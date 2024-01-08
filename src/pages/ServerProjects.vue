@@ -37,7 +37,7 @@
       :edit="isEdit"
       :editServerForm="checkedElement"
       :serverId="serverId"
-
+      @create="createProject"
     >
 
     </add-project>
@@ -69,6 +69,10 @@
       }
     },
     methods: {
+      createProject(project) {
+        console.log('function Create project works')
+        console.log(project)
+      },
       showProjectModal() {
         this.isModal = true;
       },

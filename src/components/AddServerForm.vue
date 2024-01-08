@@ -138,10 +138,8 @@
         }
         this.message = ''
       }
-
-      }
-
-      }
+    }
+  }
   }
 </script>
 

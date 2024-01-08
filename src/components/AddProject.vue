@@ -53,7 +53,8 @@
 
       <custom-checkbox
         id="project-active"
-        v-model:isActive="isActive"
+        v-model:isActive="project.active"
+
       />
       <label for="project-active" class="checkbox-label">Активный</label>
 
@@ -64,7 +65,7 @@
 <!--        v-model="project.active"-->
 <!--      />-->
 
-      <custom-button  class="form__btn" @click.prevent @click="">Добавить</custom-button>
+      <custom-button  class="form__btn" @click.prevent @click="addNewProject">Добавить</custom-button>
 
       <custom-message-block >{{ message }}</custom-message-block>
 
@@ -155,7 +156,7 @@
           type: '',
           domain: '',
           port: '',
-          active: ''
+          active: this.isActive
         },
         projectTypes: [
           { name: "Api", value: "api" },
@@ -191,25 +192,33 @@
         this.$emit('update:edit', false)
         this.$emit('update:ren', false)
       },
-      saveEditedProject(event) {
+      addNewProject() {
+        console.log(this.project)
+      },
 
-        const target = event.target.id
-        const obj = {
-          projects: [
-            {
-              id: this.editServerForm.id,
-              name: this.editServerForm.name,
-              type: this.editServerForm.type,
-              domain: this.editServerForm.domain,
-              port: this.editServerForm.port,
-              active: this.editServerForm.active
-            }
-          ]
-        }
+      async saveEditedProject(event) {
+
         try {
           console.log(`http://localhost:3000/servers/${this.serverId}`)
-          axios.patch(`http://localhost:3000/servers/${this.serverId}`, obj)
-            this.hideModal()
+          const response = await axios.get(`http://localhost:3000/servers/${this.serverId}`);
+          const data = await response.data;
+          const projects = data.projects
+          projects.forEach(el => {
+            if (el.id === this.editServerForm.id) {
+              el.id = this.editServerForm.id,
+              el.name = this.editServerForm.name,
+              el.type = this.editServerForm.type,
+              el.domain = this.editServerForm.domain,
+              el.port = this.editServerForm.port,
+              el.active = this.editServerForm.active
+              }
+          })
+
+          console.log(data)
+
+          await axios.patch(`http://localhost:3000/servers/${this.serverId}`, data)
+
+          this.$emit('update:show', false)
 
         } catch {
           throw new Error('error in POST request')
