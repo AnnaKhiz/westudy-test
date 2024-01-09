@@ -18,6 +18,7 @@
       </div>
     </div>
   </div>
+
   <div v-else class="loading">Идет загрузка...</div>
   <modal-add-server
     v-model:show="isModal"
@@ -27,6 +28,8 @@
     v-model:ren="isRender"
   >
     <add-server-form
+      :ren="isRender"
+      v-model:ren="isRender"
       :show="isModal"
       v-model:show="isModal"
       :edit="isEdit"
@@ -35,45 +38,43 @@
     />
   </modal-add-server>
 
-
 </template>
 
 <script>
 
   import ModalAddServer from "@/components/ModalAddServer";
   import AddServerForm from "@/components/AddServerForm";
-  import CustomButton from "@/components/UI/CustomButton";
   import axios from 'axios'
   import {toRaw} from "@vue/reactivity";
   export default {
     name: "Servers.vue",
-    components: {CustomButton, AddServerForm, ModalAddServer},
+    components: {AddServerForm, ModalAddServer},
     data() {
       return {
         servers: [],
-        isModal: false,
         inputName: '',
         editButtonId: 0,
         checkedElement: '',
+        isModal: false,
         isEdit: false,
         isRender: false,
-        isLoading: false
+        isLoading: false,
       }
     },
     emits: ['click'],
     methods: {
-
       showModal() {
         this.isModal = true;
       },
+
       showModalForEdit(event) {
         this.showModal();
         this.editButtonId = event.target.id
-
         const data = this.servers.filter(el => +el.id === +this.editButtonId)
         this.checkedElement = toRaw(...data)
         this.isEdit = true;
       },
+
       async createServer(server) {
         try {
           await axios.post('http://localhost:3000/servers', server)
@@ -82,12 +83,12 @@
           throw new Error('error in POST request')
         }
       },
+
       async renderServers() {
           try {
             this.isLoading = true;
             const response = await axios.get('http://localhost:3000/servers');
             const data = response.data;
-
             this.servers = data.map((element) => (
               {
                 id: element.id,
@@ -117,11 +118,10 @@
         this.isRender = newValue;
       },
       isModal(newValue) {
-        console.log('is modal  ' + this.isModal)
         this.renderServers()
-        this.isModal = newValue
-      }
-    }
+        this.isModal = newValue;
+      },
+    },
   }
 </script>
 

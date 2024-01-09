@@ -5,7 +5,6 @@
       v-for="option in options"
       :key="option.value"
       :value="option.value"
-
     >
       {{ option.name }}
     </option>
@@ -15,11 +14,6 @@
 <script>
   export default {
     name: "custom-select",
-    data() {
-      return {
-
-      }
-    },
     props: {
       modelValue: {
         type: String
@@ -28,9 +22,7 @@
         type: Array,
         default: () => []
       },
-      // selected: String,
     },
-
     methods: {
       changeOption(event) {
         this.$emit('update:modelValue', event.target.value)
@@ -43,7 +35,7 @@
 .select {
   padding: 0.5rem;
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
   border-radius: 10px;
   border: 1px solid teal;
   font-size: 1rem;

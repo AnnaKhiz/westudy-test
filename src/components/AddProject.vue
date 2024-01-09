@@ -1,7 +1,5 @@
 <template>
-
     <form class="form__add-server" v-if="!edit">
-
       <label for="project-id" >ID:</label>
       <custom-input
         placeholder="Введите ID..."
@@ -48,46 +46,44 @@
       />
       <label for="project-active" class="checkbox-label">Активный</label>
 
-
       <custom-button  class="form__btn" @click.prevent @click="addNewProject" >Добавить</custom-button>
-
       <custom-message-block >{{ message }}</custom-message-block>
 
     </form>
+
   <form v-else class="form__add-server">
 
     <div class="project__title">ID: {{editServerForm.id}}</div>
-    <label for="project-name">Название проекта:</label>
+    <label for="project-edit-name">Название проекта:</label>
     <custom-input
       placeholder="Введите название проекта..."
-      id="project-name"
+      id="project-edit-name"
       name="project-name"
       :value="editServerForm.name"
       v-model.trim="editServerForm.name"
     />
 
-    <label for="project-type">Изменить тип проекта:</label>
+    <label for="project-edit-type">Изменить тип проекта:</label>
     <custom-select
       :selected="editServerForm.type"
-      id="project-type"
+      id="project-edit-type"
       :options="projectTypes"
       v-model="editServerForm.type"
     />
 
-
-    <label for="project-domain">Домен:</label>
+    <label for="project-edit-domain">Домен:</label>
     <custom-input
       placeholder="Введите домен..."
-      id="project-domain"
+      id="project-edit-domain"
       name="project-domain"
       :value="editServerForm.domain"
       v-model.trim="editServerForm.domain"
     />
 
-    <label for="project-port">Порт:</label>
+    <label for="project-edit-port">Порт:</label>
     <custom-input
       placeholder="Введите порт..."
-      id="project-port"
+      id="project-edit-port"
       name="project-port"
       type="number"
       :value="editServerForm.port"
@@ -97,35 +93,29 @@
     <custom-checkbox
       v-if="editServerForm.active === true"
       checked
-      id="project-active"
+      id="project-edit-active"
       v-model:isActive="editServerForm.active"
     />
     <custom-checkbox
       v-else
-      id="project-active"
+      id="project-edit-active"
       v-model:isActive="editServerForm.active"
     />
-
-    <label for="project-active" class="checkbox-label">Активный</label>
+    <label for="project-edit-active" class="checkbox-label">Активный</label>
 
     <custom-button  class="form__btn" @click.prevent @click="saveEditedProject" >Редактировать</custom-button>
-
     <custom-message-block >{{ message }}</custom-message-block>
-
   </form>
-
 
 </template>
 
 <script>
   import ModalAddServer from "@/components/ModalAddServer";
-  import CustomInput from "@/components/UI/CustomInput";
   import axios from "axios";
-  import CustomSelect from "@/components/UI/CustomSelect";
 
   export default {
     name: "AddProject.vue",
-    components: {CustomSelect, ModalAddServer, CustomInput},
+    components: {ModalAddServer},
     data() {
       return {
         project: {
@@ -164,15 +154,13 @@
     },
     emits: ['create'],
     methods: {
-
-      hideModal() {
-        this.$emit('update:show', false)
-        this.$emit('update:edit', false)
-        this.$emit('update:ren', false)
-      },
       addNewProject() {
-
-        if (this.project.id === '' || this.project.name === '' || this.project.type === '' || this.project.domain === '' || this.project.port === '' ||  typeof this.project.type === 'undefined') {
+        if (this.project.id === ''
+          || this.project.name === ''
+          || this.project.type === ''
+          || this.project.domain === ''
+          || this.project.port === ''
+          ||  typeof this.project.type === 'undefined') {
           this.message = 'Заполните все поля'
         } else {
           this.message = ''
@@ -187,11 +175,8 @@
           this.$emit('create', this.project);
         }
       },
-
       async saveEditedProject(event) {
-
         try {
-
           const response = await axios.get(`http://localhost:3000/servers/${this.serverId}`);
           const data = await response.data;
           const projects = data.projects
@@ -205,52 +190,47 @@
               el.active = this.editServerForm.active
               }
           })
-
           await axios.patch(`http://localhost:3000/servers/${this.serverId}`, data)
-
           this.$emit('update:show', false)
-
         } catch {
           throw new Error('error in POST request')
         }
       }
     },
-
-
   }
 </script>
 
 <style scoped lang="scss">
-  label {
-    display: block;
-    margin-bottom: 10px;
-  }
-  input {
-    padding: 10px;
-    border: 1px solid teal;
-    border-radius: 10px;
-    margin-bottom: 15px;
-  }
+label {
+  display: block;
+  margin-bottom: 1rem;
+}
+input {
+  padding: 10px;
+  border: 1px solid teal;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+}
 .project {
   &__title {
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
     font-weight: 600;
   }
 }
-  .form {
-    &__add-server {
-      text-align: left;
-    }
-    &__btn {
-      margin: auto;
-    }
-    &__close {
-      position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
-      cursor: pointer;
-    }
+.form {
+  &__add-server {
+    text-align: left;
   }
+  &__btn {
+    margin: auto;
+  }
+  &__close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    cursor: pointer;
+  }
+}
 .checkbox-label {
   display: inline;
 }

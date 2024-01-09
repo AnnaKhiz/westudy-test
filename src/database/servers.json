@@ -1,10 +1,10 @@
 {
   "servers": [
     {
-      "name": "server 41",
+      "name": "server 45",
       "id": 1,
       "serverInfo": {
-        "cpu_temp": 23,
+        "cpu_temp": 235,
         "hdd_load": 32
       },
       "projects": [
@@ -35,7 +35,7 @@
       ]
     },
     {
-      "name": "server37",
+      "name": "server33",
       "id": 3,
       "serverInfo": {
         "cpu_temp": 14,
@@ -69,7 +69,7 @@
       ]
     },
     {
-      "name": "server4",
+      "name": "server45",
       "id": 4,
       "serverInfo": {
         "cpu_temp": 45,
@@ -78,7 +78,7 @@
       "projects": [
         {
           "id": 441,
-          "name": "project name 4.1",
+          "name": "project name 4.7",
           "type": "worker",
           "domain": "somedomain441",
           "port": 3000,
@@ -86,28 +86,26 @@
         },
         {
           "id": 442,
-          "name": "project name 4.2updated2/0",
+          "name": "project name 4.2",
           "type": "api",
           "domain": "somedomain442",
           "port": 5000,
           "active": true
-        }
-      ]
-    },
-    {
-      "id": 1704822539129,
-      "name": "server 83",
-      "serverInfo": {
-        "cpu_temp": 34,
-        "hdd_load": 56
-      },
-      "projects": [
+        },
         {
-          "id": 12,
+          "id": 3,
           "name": "project name 2.7",
+          "type": "front",
+          "domain": "3",
+          "port": 4,
+          "active": true
+        },
+        {
+          "id": 4,
+          "name": "project name 2.8",
           "type": "worker",
-          "domain": "erer",
-          "port": 34,
+          "domain": "4",
+          "port": 4,
           "active": false
         }
       ]

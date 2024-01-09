@@ -1,5 +1,4 @@
 <template>
-
   <nav class="nav__block">
     <custom-button @click="$router.push(`/`)">
       PRICES
@@ -7,17 +6,12 @@
     <custom-button @click="$router.push(`/servers`)">
       SERVERS
     </custom-button>
-<!--    <router-link to="/">PRICES</router-link> |-->
-<!--    <router-link to="/servers">SERVERS</router-link>-->
   </nav>
-
 </template>
 
 <script>
-  import CustomButton from "@/components/UI/CustomButton";
   export default {
     name: "NavBar.vue",
-    components: {CustomButton}
   }
 </script>
 

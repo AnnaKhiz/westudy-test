@@ -43,8 +43,8 @@
       </tr>
     </table>
     <div v-else class="loading">Идет загрузка...</div>
-
   </div>
+
   <modal-add-server
     v-model:show="isModal"
     :edit="isEdit"
@@ -61,7 +61,6 @@
       :serverId="serverId"
       @create="createProject"
     >
-
     </add-project>
   </modal-add-server>
 
@@ -69,15 +68,13 @@
 
 <script>
   import axios from "axios";
-
   import AddProject from "@/components/AddProject";
   import ModalAddServer from "@/components/ModalAddServer";
-  import CustomButton from "@/components/UI/CustomButton";
   import {toRaw} from "@vue/reactivity";
 
   export default {
     name: "ServerProjects.vue",
-    components: {CustomButton, AddProject, ModalAddServer},
+    components: {AddProject, ModalAddServer},
     data() {
       return {
         serverId: 0,
@@ -92,18 +89,13 @@
     },
     methods: {
       async createProject(project) {
-        console.log('function Create project works')
-        console.log(project)
         try {
           const response = await axios.get(`http://localhost:3000/servers/${this.serverId}`)
           const data = await response.data;
           const projects = data.projects;
           projects.push(project)
-
           await axios.patch(`http://localhost:3000/servers/${this.serverId}`, data)
-
           this.isModal = false
-
         } catch {
           throw new Error('project not created')
         }
@@ -155,7 +147,6 @@
         this.getProjects()
         this.isModal = newValue
       }
-
     }
   }
 </script>
@@ -182,7 +173,6 @@
   &__column {
     width: 15%;
   }
-
   &__edit button {
     margin-left: auto;
   }

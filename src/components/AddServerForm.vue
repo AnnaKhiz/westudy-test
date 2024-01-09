@@ -27,63 +27,53 @@
       v-model.trim.number="server.serverInfo.hdd_load"
     />
 
-      <custom-button  class="form__btn" @click.prevent @click="createServer">Добавить</custom-button>
-
-      <custom-message-block >{{ message }}</custom-message-block>
+    <custom-button  class="form__btn" @click.prevent @click="createServer">Добавить</custom-button>
+    <custom-message-block >{{ message }}</custom-message-block>
 
   </form>
 
   <form v-else class="form__add-server">
 
-    <label for="server-name">Название сервера:</label>
+    <label for="server-edit-name">Название сервера:</label>
     <custom-input
       placeholder="Введите название..."
-      id="server-name"
+      id="server-edit-name"
       name="server-name"
       :value="editServerForm.name"
       v-model.trim="editServerForm.name"
-
     />
 
-    <label for="server-cpu">Загрузка процессора в процентах:</label>
+    <label for="server-edit-cpu">Загрузка процессора в процентах:</label>
     <custom-input
       placeholder="Введите загрузку процессора..."
-      id="server-cpu"
+      id="server-edit-cpu"
       name="server-cpu"
       type="number"
       :value="editServerForm.serverInfo.cpu_temp"
       v-model.trim.number="editServerForm.serverInfo.cpu_temp"
     />
 
-    <label for="server-hdd">Загрузка оперативной памяти в процентах:</label>
+    <label for="server-edit-hdd">Загрузка оперативной памяти в процентах:</label>
     <custom-input
       placeholder="Введите загрузку оперативной памяти..."
-      id="server-hdd"
+      id="server-edit-hdd"
       name="server-hdd"
       type="number"
       :value="editServerForm.serverInfo.hdd_load"
       v-model.trim.number="editServerForm.serverInfo.hdd_load"
     />
 
-
     <custom-button class="form__btn" @click.prevent @click="saveChanges">Редактировать</custom-button>
-
     <custom-message-block >{{ message }}</custom-message-block>
 
   </form>
-
-
 </template>
 
 <script>
-  import CustomButton from "@/components/UI/CustomButton";
-  import CustomInput from "@/components/UI/CustomInput";
-
   import axios from "axios";
 
   export default {
     name: 'AddServerForm.vue',
-    components: {CustomInput, CustomButton},
     data() {
       return {
         server: {
@@ -110,7 +100,10 @@
         type: Boolean,
         default: true
       },
-
+      ren: {
+        type: Boolean,
+        default: true
+      },
     },
     emits: ['create'],
     methods: {
@@ -126,7 +119,7 @@
             }
           })
           this.$emit('update:show', false)
-
+          this.$emit('update:ren', true)
         } catch {
           throw new Error('error in POST request')
         }
@@ -144,11 +137,10 @@
             hdd_load: ''
           }
         }
-        this.message = ''
+        this.message = '';
       }
     }
   }
-
   }
 </script>
 
@@ -178,6 +170,4 @@ input {
     cursor: pointer;
   }
 }
-
-
 </style>

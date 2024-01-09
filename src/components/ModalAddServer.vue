@@ -1,6 +1,13 @@
 <template>
-  <div class="servers__modal" v-if="show" @click="hideModal" >
-    <div class="servers__form" @click.stop>
+  <div
+    class="servers__modal"
+    v-if="show"
+    @click="hideModal"
+  >
+    <div
+      class="servers__form"
+      @click.stop
+    >
       <custom-close-icon @click="hideModal" />
       <slot></slot>
     </div>
@@ -8,14 +15,8 @@
 </template>
 
 <script>
-
   export default {
     name: "ModalAddServer.vue",
-    data() {
-      return {
-
-      }
-    },
     props: {
       show: {
         type: Boolean,
@@ -35,9 +36,7 @@
         this.$emit('update:show', false)
         this.$emit('update:edit', false)
         this.$emit('update:ren', false)
-
       },
-
     }
   }
 </script>
@@ -64,6 +63,5 @@
     text-align: center;
     position: relative;
   }
-
 }
 </style>

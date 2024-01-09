@@ -13,7 +13,7 @@
       isActive: Boolean
     },
     methods: {
-      updateCheckbox(event) {
+      updateCheckbox() {
         this.$emit('update:isActive', !this.isActive)
       },
     },
