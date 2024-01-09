@@ -33,9 +33,9 @@
     },
     methods: {
       hideModal() {
-        this.$emit('update:show', false)
-        this.$emit('update:edit', false)
-        this.$emit('update:ren', false)
+        this.$emit('update:show', false);
+        this.$emit('update:edit', false);
+        this.$emit('update:ren', false);
       },
     }
   }

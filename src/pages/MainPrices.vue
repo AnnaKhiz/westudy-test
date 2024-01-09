@@ -45,7 +45,7 @@
           ))
           this.isLoading = false;
         } catch {
-          throw new Error('fetch error')
+          throw new Error('fetch error');
         }
       }
     },

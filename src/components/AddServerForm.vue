@@ -100,17 +100,13 @@
         type: Boolean,
         default: true
       },
-      ren: {
-        type: Boolean,
-        default: true
-      },
     },
     emits: ['create'],
     methods: {
 
-      saveChanges() {
+     async saveChanges() {
         try {
-          axios.patch(`http://localhost:3000/servers/${this.editServerForm.id}`, {
+          await axios.patch(`http://localhost:3000/servers/${this.editServerForm.id}`, {
             id: this.editServerForm.id,
             name: this.editServerForm.name,
             serverInfo: {
@@ -118,28 +114,29 @@
               hdd_load: this.editServerForm.serverInfo.hdd_load
             }
           })
-          this.$emit('update:show', false)
-          this.$emit('update:ren', true)
+          this.$emit('update:show', false);
         } catch {
-          throw new Error('error in POST request')
+          throw new Error('error in POST request');
         }
       },
+
       createServer() {
-      if (this.server.name === '' || this.server.serverInfo.cpu_temp === '' || this.server.serverInfo.hdd_load === '') {
-        this.message = 'Заполните все поля'
-      } else {
-        this.server.id = Date.now();
-        this.$emit('create', this.server);
-        this.server = {
-          name: '',
-          serverInfo: {
-            cpu_temp: '',
-            hdd_load: ''
+        if (this.server.name === '' || this.server.serverInfo.cpu_temp === '' || this.server.serverInfo.hdd_load === '') {
+          this.message = 'Заполните все поля'
+        } else {
+          this.server.id = Date.now();
+          this.$emit('create', this.server);
+
+          this.server = {
+            name: '',
+            serverInfo: {
+              cpu_temp: '',
+              hdd_load: ''
+            }
           }
+          this.message = '';
         }
-        this.message = '';
       }
-    }
   }
   }
 </script>

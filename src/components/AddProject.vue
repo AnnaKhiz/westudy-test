@@ -175,7 +175,7 @@
           this.$emit('create', this.project);
         }
       },
-      async saveEditedProject(event) {
+      async saveEditedProject() {
         try {
           const response = await axios.get(`http://localhost:3000/servers/${this.serverId}`);
           const data = await response.data;
@@ -190,8 +190,8 @@
               el.active = this.editServerForm.active
               }
           })
-          await axios.patch(`http://localhost:3000/servers/${this.serverId}`, data)
-          this.$emit('update:show', false)
+          await axios.patch(`http://localhost:3000/servers/${this.serverId}`, data);
+          this.$emit('update:show', false);
         } catch {
           throw new Error('error in POST request')
         }

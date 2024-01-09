@@ -88,6 +88,7 @@
       }
     },
     methods: {
+
       async createProject(project) {
         try {
           const response = await axios.get(`http://localhost:3000/servers/${this.serverId}`)
@@ -100,16 +101,19 @@
           throw new Error('project not created')
         }
       },
+
       showProjectModal() {
         this.isModal = true;
       },
+
       showProjectModalForEdit(event) {
-        this.isModal = true;
+        this.showProjectModal();
         this.isEdit = true;
         this.editButtonId = event.target.id
         const data = this.projects.filter(el => +el.id === +this.editButtonId)
         this.checkedElement = toRaw(...data)
       },
+
       async getProjects() {
         try {
           this.serverId = this.$route.params.id
@@ -139,13 +143,11 @@
       }
     },
     watch: {
-      isRender(newValue) {
-        this.getProjects()
-        this.isRender = newValue;
+      isRender() {
+        this.getProjects();
       },
-      isModal(newValue) {
-        this.getProjects()
-        this.isModal = newValue
+      isModal() {
+        this.getProjects();
       }
     }
   }

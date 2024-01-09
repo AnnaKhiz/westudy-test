@@ -44,7 +44,7 @@
 
   import ModalAddServer from "@/components/ModalAddServer";
   import AddServerForm from "@/components/AddServerForm";
-  import axios from 'axios'
+  import axios from "axios";
   import {toRaw} from "@vue/reactivity";
   export default {
     name: "Servers.vue",
@@ -54,7 +54,7 @@
         servers: [],
         inputName: '',
         editButtonId: 0,
-        checkedElement: '',
+        checkedElement: {},
         isModal: false,
         isEdit: false,
         isRender: false,
@@ -69,18 +69,18 @@
 
       showModalForEdit(event) {
         this.showModal();
-        this.editButtonId = event.target.id
-        const data = this.servers.filter(el => +el.id === +this.editButtonId)
-        this.checkedElement = toRaw(...data)
+        this.editButtonId = event.target.id;
+        const data = this.servers.filter(el => +el.id === +this.editButtonId);
+        this.checkedElement = toRaw(...data);
         this.isEdit = true;
       },
 
       async createServer(server) {
         try {
           await axios.post('http://localhost:3000/servers', server)
-          this.isModal = false
+          this.isModal = false;
         } catch {
-          throw new Error('error in POST request')
+          throw new Error('error in POST request');
         }
       },
 
@@ -101,25 +101,23 @@
             ))
             this.isLoading = false;
           } catch {
-            throw new Error('fetch error')
+            throw new Error('fetch error');
           }
       },
     },
 
     mounted() {
       if(!this.isRender) {
-        this.renderServers()
+        this.renderServers();
         this.isRender = true;
       }
     },
     watch: {
-      isRender(newValue) {
-        this.renderServers()
-        this.isRender = newValue;
+      isRender() {
+        this.renderServers();
       },
-      isModal(newValue) {
-        this.renderServers()
-        this.isModal = newValue;
+      isModal() {
+        this.renderServers();
       },
     },
   }
@@ -135,7 +133,7 @@
   &__block {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
     gap: 2rem;
   }
