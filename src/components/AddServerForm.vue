@@ -14,6 +14,7 @@
       placeholder="Введите загрузку процессора..."
       id="server-cpu"
       name="server-cpu"
+      type="number"
       v-model.trim.number="server.serverInfo.cpu_temp"
     />
 
@@ -22,6 +23,7 @@
       placeholder="Введите загрузку оперативной памяти..."
       id="server-hdd"
       name="server-hdd"
+      type="number"
       v-model.trim.number="server.serverInfo.hdd_load"
     />
 
@@ -48,6 +50,7 @@
       placeholder="Введите загрузку процессора..."
       id="server-cpu"
       name="server-cpu"
+      type="number"
       :value="editServerForm.serverInfo.cpu_temp"
       v-model.trim.number="editServerForm.serverInfo.cpu_temp"
     />
@@ -57,9 +60,11 @@
       placeholder="Введите загрузку оперативной памяти..."
       id="server-hdd"
       name="server-hdd"
+      type="number"
       :value="editServerForm.serverInfo.hdd_load"
       v-model.trim.number="editServerForm.serverInfo.hdd_load"
     />
+
 
     <custom-button class="form__btn" @click.prevent @click="saveChanges">Редактировать</custom-button>
 
@@ -73,6 +78,7 @@
 <script>
   import CustomButton from "@/components/UI/CustomButton";
   import CustomInput from "@/components/UI/CustomInput";
+
   import axios from "axios";
 
   export default {
@@ -87,28 +93,28 @@
             cpu_temp: '',
             hdd_load: ''
           },
-          projects: [
-            {
-              id: '',
-              name:'',
-              type: ''
-            }
-          ]
+          projects: []
         },
         message: ''
       }
     },
     props: {
+      show: {
+        type: Boolean,
+        default: false
+      },
       editServerForm: {
         type: Object,
       },
       edit: {
         type: Boolean,
         default: true
-      }
+      },
+
     },
     emits: ['create'],
     methods: {
+
       saveChanges() {
         try {
           axios.patch(`http://localhost:3000/servers/${this.editServerForm.id}`, {
@@ -119,6 +125,8 @@
               hdd_load: this.editServerForm.serverInfo.hdd_load
             }
           })
+          this.$emit('update:show', false)
+
         } catch {
           throw new Error('error in POST request')
         }
@@ -140,6 +148,7 @@
       }
     }
   }
+
   }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <select @change="changeOption" class="select">
+  <select @change="changeOption" class="select" :value="modelValue">
     <option value="" selected disabled>Выберите тип проекта</option>
     <option
       v-for="option in options"
@@ -15,6 +15,11 @@
 <script>
   export default {
     name: "custom-select",
+    data() {
+      return {
+
+      }
+    },
     props: {
       modelValue: {
         type: String
@@ -23,7 +28,7 @@
         type: Array,
         default: () => []
       },
-      selected: String,
+      // selected: String,
     },
 
     methods: {

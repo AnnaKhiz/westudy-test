@@ -6,17 +6,36 @@
       </custom-button>
     </div>
 
-    <table v-if="projects.length > 0" class="table__main">
+    <div v-if="projects.length === 0" class="projects-list__title">У этого сервера нет проектов</div>
+    <div v-else class="projects-list__title">Проекты сервера - ID: {{$route.params.id}}</div>
+
+    <table v-if="!isLoading" class="table__main">
       <tr>
+        <th>ID</th>
         <th>Name</th>
         <th>Type</th>
+        <th>Domain</th>
+        <th>Port</th>
+        <th>Active</th>
       </tr>
       <tr v-for="project in projects" :key="project.id">
-        <td class="table__name">
+        <td class="table__column">
+          {{ project.id }}
+        </td>
+        <td class="table__column">
           {{ project.name }}
         </td>
-        <td class="table__type">
+        <td class="table__column">
           {{ project.type }}
+        </td>
+        <td class="table__column">
+          {{ project.domain }}
+        </td>
+        <td class="table__column">
+          {{ project.port }}
+        </td>
+        <td class="table__column">
+          {{ project.active }}
         </td>
         <td class="table__edit">
           <custom-button @click="showProjectModalForEdit" :id="project.id" >Редактировать</custom-button>
@@ -24,6 +43,7 @@
       </tr>
     </table>
     <div v-else class="loading">Идет загрузка...</div>
+
   </div>
   <modal-add-server
     v-model:show="isModal"
@@ -34,6 +54,8 @@
   >
 
     <add-project
+      :show="isModal"
+      v-model:show="isModal"
       :edit="isEdit"
       :editServerForm="checkedElement"
       :serverId="serverId"
@@ -80,6 +102,8 @@
 
           await axios.patch(`http://localhost:3000/servers/${this.serverId}`, data)
 
+          this.isModal = false
+
         } catch {
           throw new Error('project not created')
         }
@@ -91,10 +115,8 @@
         this.isModal = true;
         this.isEdit = true;
         this.editButtonId = event.target.id
-        console.log(this.projects.filter(el => +el.id === +this.editButtonId))
         const data = this.projects.filter(el => +el.id === +this.editButtonId)
         this.checkedElement = toRaw(...data)
-        console.log(this.checkedElement)
       },
       async getProjects() {
         try {
@@ -123,12 +145,15 @@
         this.getProjects();
         this.isRender = true;
       }
-
     },
     watch: {
       isRender(newValue) {
         this.getProjects()
         this.isRender = newValue;
+      },
+      isModal(newValue) {
+        this.getProjects()
+        this.isModal = newValue
       }
 
     }
@@ -147,24 +172,17 @@
 }
 .table {
   &__main {
+    margin: auto;
     border: 1px solid #ddd;
     border-collapse: collapse;
     width: 100%;
     text-align: left;
     font-size: 1rem;
   }
-  &__name {
-    width: 20%;
+  &__column {
+    width: 15%;
   }
-  &__price {
-    width: 20%;
-  }
-  &__type {
-    width: 20%;
-  }
-  &__description {
-    width: 60%;
-  }
+
   &__edit button {
     margin-left: auto;
   }
@@ -175,7 +193,8 @@ td, th {
 tr {
   border-bottom: 1px solid #ddd;
 }
-.loading {
+.loading, .projects-list__title {
   font-size: 1.5rem;
+  margin-bottom: 1rem;
 }
 </style>

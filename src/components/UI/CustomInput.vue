@@ -4,6 +4,7 @@
     @input="updateInput"
     class="input"
     type="text"
+    required
   />
 </template>
 
@@ -16,7 +17,8 @@
     methods: {
       updateInput(event) {
         this.$emit('update:modelValue', event.target.value)
-      }
+      },
+
     }
   }
 </script>
@@ -32,6 +34,9 @@
   margin-bottom: 1.5rem;
   &:last-of-type {
     margin-bottom: 30px;
+  }
+  :invalid {
+    color: red
   }
 }
 </style>

@@ -13,8 +13,9 @@
 <style scoped lang="scss">
 .btn {
   display: block;
-  padding: 1.3rem;
+  padding: 0.8rem;
   border: 1px solid teal;
+  border-radius: 0.3rem;
   background-color: white;
   cursor: pointer;
 }

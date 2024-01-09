@@ -20,13 +20,15 @@
   </div>
   <div v-else class="loading">Идет загрузка...</div>
   <modal-add-server
+    v-model:show="isModal"
     :edit="isEdit"
     v-model:edit="isEdit"
-    v-model:show="isModal"
     :ren="isRender"
     v-model:ren="isRender"
   >
     <add-server-form
+      :show="isModal"
+      v-model:show="isModal"
       :edit="isEdit"
       :editServerForm="checkedElement"
       @create="createServer"
@@ -65,17 +67,17 @@
         this.isModal = true;
       },
       showModalForEdit(event) {
-        this.isModal = true;
+        this.showModal();
         this.editButtonId = event.target.id
 
         const data = this.servers.filter(el => +el.id === +this.editButtonId)
         this.checkedElement = toRaw(...data)
-        this.isEdit = true
+        this.isEdit = true;
       },
       async createServer(server) {
         try {
           await axios.post('http://localhost:3000/servers', server)
-          .then(res => console.log(res))
+          this.isModal = false
         } catch {
           throw new Error('error in POST request')
         }
@@ -101,7 +103,6 @@
             throw new Error('fetch error')
           }
       },
-
     },
 
     mounted() {
@@ -114,6 +115,11 @@
       isRender(newValue) {
         this.renderServers()
         this.isRender = newValue;
+      },
+      isModal(newValue) {
+        console.log('is modal  ' + this.isModal)
+        this.renderServers()
+        this.isModal = newValue
       }
     }
   }
@@ -129,7 +135,7 @@
   &__block {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: space-between;
     flex-wrap: wrap;
     gap: 2rem;
   }
@@ -138,15 +144,16 @@
     justify-content: flex-start;
     gap: 1.5rem;
     margin-bottom: 1.5rem;
+    flex-wrap: wrap;
   }
   &__card {
-    width: 45%;
+    width: 30%;
     padding: 1.5rem 1.5rem 0 1.5rem;
     border: 1px solid teal;
     text-align: left;
   }
   &__text {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin-bottom: 15px;
     &.last {
       margin-bottom: 25px;
@@ -160,7 +167,7 @@
   background-color: white;
 }
 .bold {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 700;
 }
 </style>

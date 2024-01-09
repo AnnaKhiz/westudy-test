@@ -7,7 +7,8 @@
         placeholder="Введите ID..."
         id="project-id"
         name="project-id"
-        v-model.trim="project.id"
+        type="number"
+        v-model.trim.number="project.id"
       />
 
       <label for="project-name">Название проекта:</label>
@@ -37,6 +38,7 @@
         placeholder="Введите порт..."
         id="project-port"
         name="project-port"
+        type="number"
         v-model.trim.number="project.port"
       />
 
@@ -46,8 +48,8 @@
       />
       <label for="project-active" class="checkbox-label">Активный</label>
 
-      <custom-button  v-if="isDisabled" class="form__btn" @click.prevent @click="addNewProject" disabled>Добавить</custom-button>
-      <custom-button  v-else class="form__btn" @click.prevent @click="addNewProject" >Добавить</custom-button>
+
+      <custom-button  class="form__btn" @click.prevent @click="addNewProject" >Добавить</custom-button>
 
       <custom-message-block >{{ message }}</custom-message-block>
 
@@ -64,8 +66,9 @@
       v-model.trim="editServerForm.name"
     />
 
-    <label for="project-type">Тип проекта ({{ editServerForm.type }}). Изменить:</label>
+    <label for="project-type">Изменить тип проекта:</label>
     <custom-select
+      :selected="editServerForm.type"
       id="project-type"
       :options="projectTypes"
       v-model="editServerForm.type"
@@ -86,6 +89,7 @@
       placeholder="Введите порт..."
       id="project-port"
       name="project-port"
+      type="number"
       :value="editServerForm.port"
       v-model.trim.number="editServerForm.port"
     />
@@ -130,7 +134,7 @@
           type: this.selectedSort,
           domain: '',
           port: '',
-          active: this.isActive
+          active: false
         },
         projectTypes: [
           { name: "Api", value: "api" },
@@ -140,7 +144,6 @@
         message: '',
         isActive: false,
         selectedSort: '',
-        isDisabled: false
     }
     },
     props: {
@@ -168,10 +171,11 @@
         this.$emit('update:ren', false)
       },
       addNewProject() {
-        if (Object.values(this.project).every(value => value === '')) {
+
+        if (this.project.id === '' || this.project.name === '' || this.project.type === '' || this.project.domain === '' || this.project.port === '' ||  typeof this.project.type === 'undefined') {
           this.message = 'Заполните все поля'
         } else {
-
+          this.message = ''
           this.project = {
             id: this.project.id,
             name: this.project.name,
@@ -187,7 +191,7 @@
       async saveEditedProject(event) {
 
         try {
-          console.log(`http://localhost:3000/servers/${this.serverId}`)
+
           const response = await axios.get(`http://localhost:3000/servers/${this.serverId}`);
           const data = await response.data;
           const projects = data.projects

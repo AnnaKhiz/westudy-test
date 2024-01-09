@@ -1,8 +1,8 @@
 {
   "servers": [
     {
-      "name": "server21eeee",
-      "id": "1",
+      "name": "server 41",
+      "id": 1,
       "serverInfo": {
         "cpu_temp": 23,
         "hdd_load": 32
@@ -10,25 +10,33 @@
       "projects": [
         {
           "id": 111,
-          "name": "project name 12",
-          "type": "front",
+          "name": "project name905v",
+          "type": "worker",
           "domain": "somedomain551",
           "port": 8000,
           "active": true
         },
         {
-          "id": "12",
-          "name": "project name 2.9",
+          "id": 12,
+          "name": "project name 89",
           "type": "front",
-          "domain": "0000",
-          "port": 2323,
+          "domain": "454545",
+          "port": 45454,
           "active": false
+        },
+        {
+          "id": 45,
+          "name": "project name 2.7",
+          "type": "api",
+          "domain": "dfgdfg",
+          "port": 2323,
+          "active": true
         }
       ]
     },
     {
-      "name": "server33",
-      "id": "3",
+      "name": "server37",
+      "id": 3,
       "serverInfo": {
         "cpu_temp": 14,
         "hdd_load": 54
@@ -36,7 +44,7 @@
       "projects": [
         {
           "id": 331,
-          "name": "project name 3.1",
+          "name": "project name 3",
           "type": "worker",
           "domain": "somedomain331",
           "port": 3030,
@@ -44,26 +52,27 @@
         },
         {
           "id": 332,
-          "name": "project name 3.2",
+          "name": "project name 3.7",
           "type": "front",
           "domain": "somedomain332",
           "port": 8000,
           "active": true
         },
         {
-          "id": "23",
+          "id": 23,
           "name": "project name 2.8",
           "domain": "er",
           "port": "er",
-          "type": "worker"
+          "type": "worker",
+          "active": true
         }
       ]
     },
     {
       "name": "server4",
-      "id": "4",
+      "id": 4,
       "serverInfo": {
-        "cpu_temp": "45",
+        "cpu_temp": 45,
         "hdd_load": 42
       },
       "projects": [
@@ -86,27 +95,19 @@
       ]
     },
     {
-      "id": 1704539845959,
-      "name": "server56xcv",
+      "id": 1704822539129,
+      "name": "server 83",
       "serverInfo": {
-        "cpu_temp": "56",
-        "hdd_load": "67"
+        "cpu_temp": 34,
+        "hdd_load": 56
       },
       "projects": [
         {
-          "id": 551,
-          "name": "project name 1",
-          "type": "api",
-          "domain": "somedomain551",
-          "port": 3000,
-          "active": false
-        },
-        {
-          "id": 552,
-          "name": "project name 2",
-          "type": "front",
-          "domain": "somedomain552",
-          "port": 3030,
+          "id": 12,
+          "name": "project name 2.7",
+          "type": "worker",
+          "domain": "erer",
+          "port": 34,
           "active": false
         }
       ]
