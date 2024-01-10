@@ -117,14 +117,11 @@
           })
           this.$emit('update:show', false);
           this.$emit('update:edit', false);
-          console.log(this.show)
 
         } catch {
           throw new Error('error in POST request');
         }
 
-
-       console.log(this.edit)
       },
 
       createServer() {
