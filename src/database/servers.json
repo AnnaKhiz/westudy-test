@@ -4,16 +4,16 @@
       "name": "server 23",
       "id": 1,
       "serverInfo": {
-        "cpu_temp": 235,
-        "hdd_load": 32
+        "cpu_temp": 236,
+        "hdd_load": 33
       },
       "projects": [
         {
           "id": 111,
-          "name": "project name905v",
+          "name": "project name905v11",
           "type": "worker",
-          "domain": "somedomain551",
-          "port": 8000,
+          "domain": "somedomain55111",
+          "port": 8001,
           "active": true
         },
         {
@@ -27,7 +27,7 @@
       ]
     },
     {
-      "name": "server 5",
+      "name": "server 55",
       "id": 3,
       "serverInfo": {
         "cpu_temp": 14,
@@ -53,7 +53,7 @@
       ]
     },
     {
-      "name": "server45",
+      "name": "server43",
       "id": 4,
       "serverInfo": {
         "cpu_temp": 45,
@@ -62,7 +62,7 @@
       "projects": [
         {
           "id": 441,
-          "name": "project name 4.5",
+          "name": "project name 4.6",
           "type": "worker",
           "domain": "somedomain441",
           "port": 3000,

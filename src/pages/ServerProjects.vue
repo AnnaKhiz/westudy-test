@@ -57,6 +57,7 @@
       :show="isModal"
       v-model:show="isModal"
       :edit="isEdit"
+      v-model:edit="isEdit"
       :editServerForm="checkedElement"
       :serverId="serverId"
       @create="createProject"

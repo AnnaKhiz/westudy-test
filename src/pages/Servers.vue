@@ -33,6 +33,7 @@
       :show="isModal"
       v-model:show="isModal"
       :edit="isEdit"
+      v-model:edit="isEdit"
       :editServerForm="checkedElement"
       @create="createServer"
     />
@@ -117,6 +118,9 @@
         this.renderServers();
       },
       isModal() {
+        this.renderServers();
+      },
+      isEdit() {
         this.renderServers();
       },
     },

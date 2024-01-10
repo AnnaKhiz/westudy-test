@@ -176,6 +176,7 @@
         }
       },
       async saveEditedProject() {
+        console.log(this.edit)
         try {
           const response = await axios.get(`http://localhost:3000/servers/${this.serverId}`);
           const data = await response.data;
@@ -192,6 +193,7 @@
           })
           await axios.patch(`http://localhost:3000/servers/${this.serverId}`, data);
           this.$emit('update:show', false);
+          this.$emit('update:edit', false);
         } catch {
           throw new Error('error in POST request')
         }
