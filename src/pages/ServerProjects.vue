@@ -39,6 +39,7 @@
         </td>
         <td class="table__edit">
           <custom-button @click="showProjectModalForEdit" :id="project.id" >Редактировать</custom-button>
+          <custom-button @click="deleteProject" :id="project.id" >Удалить</custom-button>
         </td>
       </tr>
     </table>
@@ -135,6 +136,22 @@
         } catch {
           throw new Error('fetch error')
         }
+      },
+
+      async deleteProject(event) {
+        this.editButtonId = +event.target.id;
+        try {
+          const response = await axios.get(`http://localhost:3000/servers/${this.$route.params.id}`);
+          const data = await response.data;
+          const projects = data.projects;
+          const editedProjects = projects.filter(project => project.id !== this.editButtonId)
+          const res = await axios.patch(`http://localhost:3000/servers/${this.$route.params.id}`, {
+            "projects": editedProjects
+          });
+          res.status === 200 ? this.isRender = !this.isRender : false;
+        } catch {
+          throw new Error('error in DELETE request (delete server function)');
+        }
       }
     },
     mounted() {
@@ -176,9 +193,14 @@
   &__column {
     width: 15%;
   }
-  &__edit button {
-    margin-left: auto;
+  &__edit {
+    display: flex;
+    column-gap: 10px;
+    & button {
+      margin-left: auto;
+    }
   }
+
 }
 td, th {
   padding: 0.5rem;

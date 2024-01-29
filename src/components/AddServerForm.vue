@@ -105,7 +105,6 @@
     methods: {
 
      async saveChanges() {
-
         try {
           await axios.patch(`http://localhost:3000/servers/${this.editServerForm.id}`, {
             id: this.editServerForm.id,
@@ -117,7 +116,6 @@
           })
           this.$emit('update:show', false);
           this.$emit('update:edit', false);
-
         } catch {
           throw new Error('error in POST request');
         }
@@ -125,7 +123,6 @@
       },
 
       createServer() {
-
         if (this.server.name === '' || this.server.serverInfo.cpu_temp === '' || this.server.serverInfo.hdd_load === '') {
           this.message = 'Заполните все поля'
         } else {

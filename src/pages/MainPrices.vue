@@ -1,4 +1,5 @@
 <template>
+
   <table v-if="serverData.length > 0" class="table__main">
     <tr>
       <th>Name</th>
@@ -17,7 +18,9 @@
       </td>
     </tr>
   </table>
+
   <div v-else class="loading">Идет загрузка...</div>
+
 </template>
 
 <script>

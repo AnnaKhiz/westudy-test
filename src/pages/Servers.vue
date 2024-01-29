@@ -3,11 +3,15 @@
     <custom-button @click="showModal">
       Добавить сервер
     </custom-button>
+
   </div>
 
   <div class="servers" v-if="servers.length > 0">
+
     <div class="servers__block">
-      <div class="servers__card" :servers="servers" v-for="server in servers" :key="server.id" @click="$emit('click', server.id)">
+
+      <div class="servers__card" :servers="servers" v-for="server in servers" :key="server.id" @click="$emit('click', server.id)" >
+        <custom-close-icon @click="deleteServer" class="close-icon" :id="server.id"></custom-close-icon>
         <p class="servers__text">Название сервера: <span class="bold">{{ server.name }}</span></p>
         <p class="servers__text">Загрузка процессора: <span class="bold"> {{ server.serverInfo.cpu_temp }}%</span></p>
         <p class="servers__text last">Загрузка оперативной памяти: <span class="bold">{{ server.serverInfo.hdd_load }}%</span></p>
@@ -27,6 +31,7 @@
     :ren="isRender"
     v-model:ren="isRender"
   >
+
     <add-server-form
       :ren="isRender"
       v-model:ren="isRender"
@@ -47,6 +52,7 @@
   import AddServerForm from "@/components/AddServerForm";
   import axios from "axios";
   import {toRaw} from "@vue/reactivity";
+
   export default {
     name: "Servers.vue",
     components: {AddServerForm, ModalAddServer},
@@ -79,6 +85,7 @@
       async createServer(server) {
         try {
           await axios.post('http://localhost:3000/servers', server)
+
           this.isModal = false;
         } catch {
           throw new Error('error in POST request');
@@ -105,6 +112,16 @@
             throw new Error('fetch error');
           }
       },
+
+      async deleteServer(event) {
+        this.editButtonId = event.target.parentElement.id;
+        try {
+          const res = await axios.delete(`http://localhost:3000/servers/${this.editButtonId}`);
+          res.status === 200 ? this.isRender = !this.isRender : false
+        } catch {
+          throw new Error('error in DELETE request (delete server function)');
+        }
+      }
     },
 
     mounted() {
@@ -149,6 +166,7 @@
     flex-wrap: wrap;
   }
   &__card {
+    position: relative;
     width: 30%;
     padding: 1.5rem 1.5rem 0 1.5rem;
     border: 1px solid teal;
@@ -171,5 +189,8 @@
 .bold {
   font-size: 1.4rem;
   font-weight: 700;
+}
+.close-icon {
+
 }
 </style>

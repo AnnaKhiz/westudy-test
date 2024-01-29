@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: "custom-close-icon"
+    name: "custom-close-icon",
   }
 </script>
 

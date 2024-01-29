@@ -7,23 +7,24 @@ const routes = [
   {
     path: '/',
     name: 'prices',
-    component: MainPrices
+    component: MainPrices,
   },
   {
     path: '/servers',
     name: 'servers',
-    component: Servers
+    component: Servers,
   },
   {
     path: '/servers/:id/projects',
     name: 'projects',
-    component: ServerProjects
+    component: ServerProjects,
   }
 ]
 
 const router = createRouter({
   routes,
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(window.location.pathname),
+
 
 })
 
